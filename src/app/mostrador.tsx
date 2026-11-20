@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
 
 import { Boton } from '../components/Boton';
 import { EstadoVacio } from '../components/EstadoVacio';
@@ -35,6 +36,15 @@ export default function PantallaDelMostrador() {
     [listasDeEspera],
   );
 
+  // cerramos la sesión (Stack.Protected borra el mostrador del historial) y volvemos a lo que había debajo.
+  // el back evita que expo-router ponga otra copia de las tabs en el lugar del mostrador
+  function salirDelMostrador() {
+    cerrarSesion();
+    if (router.canGoBack()) {
+      router.back();
+    }
+  }
+
   async function entregar(isbn: string, titulo: string) {
     const resultado = await entregarAlSiguiente(isbn);
     setUltimoMovimiento(
@@ -68,7 +78,7 @@ export default function PantallaDelMostrador() {
       ListFooterComponent={
         <View style={estilos.pie}>
           {/* al cerrar sesión, Stack.Protected saca el mostrador del historial */}
-          <Boton texto="Cerrar sesión" icono="log-out-outline" variante="peligro" alTocar={cerrarSesion} />
+          <Boton texto="Cerrar sesión" icono="log-out-outline" variante="peligro" alTocar={salirDelMostrador} />
         </View>
       }
     />

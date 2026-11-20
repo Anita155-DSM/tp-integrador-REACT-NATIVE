@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { router } from 'expo-router';
 
 import { Boton } from '../components/Boton';
 import { AREA_TACTIL_MINIMA, BORDE_REDONDEADO, ESPACIO, TAMANIO_LETRA, type PaletaDeColores } from '../constants/tema';
@@ -15,10 +16,15 @@ export default function PantallaDeLogin() {
   const [claveEscrita, setClaveEscrita] = useState('');
   const [datosIncorrectos, setDatosIncorrectos] = useState(false);
 
-  // no hace falta navegar: al prenderse la sesión, Stack.Protected saca este modal solito
+  // al prenderse la sesión, Stack.Protected saca este modal solito (su guard pasa a false).
+  // el replace es para caer directo en el mostrador: sin él, expo-router rellena el hueco del login
+  // con otra copia de las tabs y quedan dos catálogos apilados (lo vimos en un test de navegación)
   function intentarEntrar() {
     const entro = iniciarSesion(usuarioEscrito, claveEscrita);
     setDatosIncorrectos(!entro);
+    if (entro) {
+      router.replace('/mostrador');
+    }
   }
 
   return (
