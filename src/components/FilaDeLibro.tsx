@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 import { AREA_TACTIL_MINIMA, ESPACIO, PESO_LETRA, TAMANIO_LETRA, type PaletaDeColores } from '../constants/tema';
@@ -15,22 +15,21 @@ export function FilaDeLibro({ libro }: PropsDeLaFila) {
   const colores = useColores();
 
   return (
-    <Link href={{ pathname: '/libro/[isbn]', params: { isbn: libro.isbn } }} asChild>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${libro.titulo}, de ${libro.autor}`}
-        accessibilityHint="Abre la ficha del libro"
-        style={({ pressed }) => [estilos.fila, pressed && estilos.apretada]}
-      >
-        <View style={estilos.textos}>
-          <Text style={estilos.titulo}>{libro.titulo}</Text>
-          <Text style={estilos.autor}>
-            {libro.autor} · {libro.anio}
-          </Text>
-        </View>
-        <Ionicons name="chevron-forward" size={20} color={colores.textoSuave} />
-      </Pressable>
-    </Link>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${libro.titulo}, de ${libro.autor}`}
+      accessibilityHint="Abre la ficha del libro"
+      onPress={() => router.navigate({ pathname: '/libro/[isbn]', params: { isbn: libro.isbn } })}
+      style={({ pressed }) => [estilos.fila, pressed && estilos.apretada]}
+    >
+      <View style={estilos.textos}>
+        <Text style={estilos.titulo}>{libro.titulo}</Text>
+        <Text style={estilos.autor}>
+          {libro.autor} · {libro.anio}
+        </Text>
+      </View>
+      <Ionicons name="chevron-forward" size={20} color={colores.textoSuave} />
+    </Pressable>
   );
 }
 

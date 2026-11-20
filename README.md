@@ -246,24 +246,6 @@ Tampoco hay `console.log`, `any`, estilos en línea ni reglas de lint desactivad
 
 ---
 
-## 📸 Capturas para la entrega (checklist)
+## 📸 Capturas para la entrega (capturas/)
 
-Van en la carpeta `capturas/` (o un video corto):
-
-- [ ] Catálogo cargando, con error (falla 1 de cada 5 veces: recargá hasta que salga) y con datos
-
-- [ ] Buscador con resultados
-
-- [ ] Detalle inexistente (`/libro/123`)
-
-- [ ] Reserva con ejemplares (ej.: "Ficciones") y sin ejemplares (ej.: "El Aleph", que ya tiene 2 personas esperando)
-
-- [ ] Escáner en sus cuatro estados: cargando, concedido, preguntable y bloqueado
-
-- [ ] Notificación recibida (prendé "Recordarme" y esperá 15 segundos)
-
-- [ ] Mostrador antes y después de "Entregar al siguiente"
-
-- [ ] Pantalla 404
-
-> Para probar "te toca" desde el mostrador: anotate en la lista de "Nuestra parte de noche" (hay 1 persona antes que vos), entrá como personal y tocá "Entregar al siguiente" dos veces.
+Van en la carpeta `capturas/` 

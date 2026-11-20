@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 
 import { AREA_TACTIL_MINIMA, BORDE_REDONDEADO, ESPACIO, PESO_LETRA, TAMANIO_LETRA, type PaletaDeColores } from '../constants/tema';
 import { useEstilos } from '../hooks/useEstilos';
@@ -21,13 +21,16 @@ export function VistosRecientes({ libros }: PropsDeVistosRecientes) {
       ) : (
         <View style={estilos.fila}>
           {libros.map((libro) => (
-            <Link key={libro.isbn} href={{ pathname: '/libro/[isbn]', params: { isbn: libro.isbn } }} asChild>
-              <Pressable accessibilityRole="button" style={({ pressed }) => [estilos.tarjeta, pressed && estilos.apretada]}>
-                <Text style={estilos.tituloDelLibro} numberOfLines={2}>
-                  {libro.titulo}
-                </Text>
-              </Pressable>
-            </Link>
+            <Pressable
+              key={libro.isbn}
+              accessibilityRole="button"
+              onPress={() => router.navigate({ pathname: '/libro/[isbn]', params: { isbn: libro.isbn } })}
+              style={({ pressed }) => [estilos.tarjeta, pressed && estilos.apretada]}
+            >
+              <Text style={estilos.tituloDelLibro} numberOfLines={2}>
+                {libro.titulo}
+              </Text>
+            </Pressable>
           ))}
         </View>
       )}
