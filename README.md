@@ -77,6 +77,8 @@ npx tsc --noEmit        # chequeo de tipos (tiene que dar 0 errores)
 npm test                # tests de Pila y Cola con jest-expo
 ```
 
+> 💡 Las rutas tipadas se generan en `.expo/types` la primera vez que corrés `npx expo start`. Hacelo al menos una vez antes de `npx tsc --noEmit`, así TypeScript chequea también que cada `href` apunte a una ruta que existe.
+
 ---
 
 ## 🗂️ Árbol de rutas (`src/app`) y navegador de cada `_layout`
