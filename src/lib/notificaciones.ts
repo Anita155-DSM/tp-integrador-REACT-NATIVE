@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import { AndroidImportance, SchedulableTriggerInputTypes } from 'expo-notifications';
 
 import { CANAL_DE_PRESTAMOS, SEGUNDOS_HASTA_EL_RECORDATORIO } from '../constants/biblioteca';
 
@@ -23,7 +24,7 @@ export async function crearCanalDePrestamos(): Promise<void> {
   await Notifications.setNotificationChannelAsync(CANAL_DE_PRESTAMOS, {
     name: 'Préstamos de la biblioteca',
     description: 'Recordatorios de devolución y avisos cuando te toca un libro.',
-    importance: Notifications.AndroidImportance.HIGH,
+    importance: AndroidImportance.HIGH,
   });
 }
 
@@ -41,7 +42,7 @@ export async function programarRecordatorioDeDevolucion(tituloDelLibro: string):
       body: `Se te vence el préstamo de "${tituloDelLibro}". Pasá por la biblioteca así lo disfruta otra persona.`,
     },
     trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+      type: SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds: SEGUNDOS_HASTA_EL_RECORDATORIO,
       channelId: CANAL_DE_PRESTAMOS,
     },
