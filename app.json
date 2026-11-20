@@ -61,7 +61,8 @@
         "expo-notifications",
         {
           "color": "#1F4E79",
-          "defaultChannel": "prestamos"
+          "defaultChannel": "prestamos",
+          "enableRemoteNotifications": false
         }
       ]
     ],
