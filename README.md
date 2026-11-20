@@ -1,4 +1,5 @@
-# 📚 Biblioteca IPF
+
+# Biblioteca IPF
 
 TP N° 4 de **React Native II** (Tecnicatura Superior en Desarrollo de Software Multiplataforma, Instituto Politécnico Formosa).
 
@@ -7,7 +8,7 @@ Es una app para que los alumnos consulten el catálogo de la biblioteca, reserve
 - **SDK de Expo:** 58 (`expo ~58.0.26`, React Native 0.88, React 19.3, Expo Router 58)
 - **Lenguaje:** TypeScript estricto, sin `any`, con rutas tipadas
 - **Módulos nativos:** solo `expo-camera` y `expo-notifications`
-- Las respuestas de las Partes B a E están en [`RESPUESTAS.md`](./RESPUESTAS.md)
+- Las respuestas de las Partes B a E están en `RESPUESTAS.md`
 
 ---
 
@@ -16,7 +17,7 @@ Es una app para que los alumnos consulten el catálogo de la biblioteca, reserve
 ### 1. Lo que necesitás tener instalado
 
 | Qué | Versión | Para qué |
-|---|---|---|
+| --- | --- | --- |
 | [Node.js](https://nodejs.org) | 20 LTS o más nuevo (yo usé 22) | correr Expo y npm |
 | Git | cualquiera reciente | clonar el repo |
 | **Expo Go** en el celular | la versión que soporte **SDK 58** (actualizala desde Play Store / App Store) | abrir la app en el teléfono |
@@ -170,7 +171,7 @@ Además, en `app.json` están `"scheme": "bibliotecaipf"`, `"typedRoutes": true`
 ## 🔐 Tabla de permisos
 
 | Recurso | Módulo | Cuándo se pide | Si la persona dice que no (alternativa) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Cámara | `expo-camera` (`useCameraPermissions`, envuelto en `usePermiso`) | Al tocar **"Escanear"**: primero aparece la pantalla previa `/permisos/camara` con el beneficio y el botón "Continuar", y recién ahí el cartel del sistema | Siempre se puede **escribir el ISBN a mano** en el mismo escáner. Si quedó bloqueado, el botón pasa a ser **"Abrir Ajustes"** |
 | Notificaciones | `expo-notifications` | **Únicamente** al prender el interruptor **"Recordarme"** de un préstamo (antes se crea el canal `prestamos` en Android y se muestra `/permisos/notificaciones`) | Los avisos aparecen **dentro de la app**, en la pestaña "Mis reservas" (con un numerito en la tab). Nada se bloquea |
 
@@ -181,7 +182,7 @@ La app **no pide ningún otro permiso**: no usa ubicación, galería, micrófono
 En `android.blockedPermissions` bloqueamos todo lo que la app **no usa**, por si alguna librería (o una dependencia de una dependencia) lo agrega sin avisar. En el build, Expo los marca con `tools:node="remove"` y desaparecen del `AndroidManifest.xml` final:
 
 | Permiso bloqueado | Por qué no lo necesitamos |
-|---|---|
+| --- | --- |
 | `RECORD_AUDIO` | La cámara solo lee códigos de barras: no grabamos video con sonido. Va además de `recordAudioAndroid: false`, como doble seguro |
 | `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION`, `ACCESS_BACKGROUND_LOCATION` | La biblioteca no necesita saber dónde estás |
 | `READ_MEDIA_IMAGES`, `READ_MEDIA_VIDEO`, `READ_MEDIA_AUDIO`, `READ_EXTERNAL_STORAGE`, `WRITE_EXTERNAL_STORAGE` | No leemos ni guardamos fotos ni archivos: lo guardado va en AsyncStorage, que es privado de la app |
@@ -197,7 +198,7 @@ Lo comprobé con `npx expo config --type introspect`: después de los plugins, l
 En una build propia el scheme es `bibliotecaipf://`. En **Expo Go** hay que usar la URL de Metro con `/--/` adelante de la ruta (reemplazá `192.168.0.10` por la IP que te muestra `npx expo start`):
 
 | Link con scheme | Equivalente en Expo Go | Qué debería pasar |
-|---|---|---|
+| --- | --- | --- |
 | `bibliotecaipf://libro/9789500725347` | `exp://192.168.0.10:8081/--/libro/9789500725347` | Detalle de "Ficciones", con el Catálogo debajo |
 | `bibliotecaipf://libro/123` | `exp://192.168.0.10:8081/--/libro/123` | Mensaje "no parece un ISBN" + botón "Volver al catálogo" |
 | `bibliotecaipf://buscar?q=borges` | `exp://192.168.0.10:8081/--/buscar?q=borges` | Buscador con "borges" escrito y sus resultados, con las tabs debajo |
@@ -209,6 +210,7 @@ En una build propia el scheme es `bibliotecaipf://`. En **Expo Go** hay que usar
 **Cómo abrirlos:**
 
 - **Android (con el celu conectado por USB):**
+
   ```bash
   adb shell am start -a android.intent.action.VIEW -d "exp://192.168.0.10:8081/--/libro/9789500725347"
   ```
@@ -249,12 +251,19 @@ Tampoco hay `console.log`, `any`, estilos en línea ni reglas de lint desactivad
 Van en la carpeta `capturas/` (o un video corto):
 
 - [ ] Catálogo cargando, con error (falla 1 de cada 5 veces: recargá hasta que salga) y con datos
+
 - [ ] Buscador con resultados
+
 - [ ] Detalle inexistente (`/libro/123`)
+
 - [ ] Reserva con ejemplares (ej.: "Ficciones") y sin ejemplares (ej.: "El Aleph", que ya tiene 2 personas esperando)
+
 - [ ] Escáner en sus cuatro estados: cargando, concedido, preguntable y bloqueado
+
 - [ ] Notificación recibida (prendé "Recordarme" y esperá 15 segundos)
+
 - [ ] Mostrador antes y después de "Entregar al siguiente"
+
 - [ ] Pantalla 404
 
 > Para probar "te toca" desde el mostrador: anotate en la lista de "Nuestra parte de noche" (hay 1 persona antes que vos), entrá como personal y tocá "Entregar al siguiente" dos veces.
